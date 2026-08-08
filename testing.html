@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Get expert app testing and website usability audits by Auzent. The Auzent provides 20 testers for Google Play Store compliance and top-tier web development checks.">
+    
+    <title>App Testing & Web Audits | Auzent</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "name": "App Testing & Website Auditing",
+          "serviceType": "Software Testing and Web Development",
+          "provider": {
+            "@type": "Organization",
+            "name": "The Auzent",
+            "url": "https://theauzent.netlify.app"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Auzent Testing Packages",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": { "@type": "Service", "name": "Google Play Store 14-Day App Testing (20 Testers)" },
+                "priceSpecification": { "@type": "UnitPriceSpecification", "priceCurrency": "INR", "minPrice": "1500" }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": { "@type": "Service", "name": "Website Usability Audit" },
+                "priceSpecification": { "@type": "UnitPriceSpecification", "priceCurrency": "INR", "minPrice": "800" }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does the Google Play Store 14-Day App Testing work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Auzent allocates 20 real, non-developer testers who interact with your Android app continuously for 14 days, fulfilling Google's strict testing requirements."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is included in the Website Usability Audit?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our web development team conducts a deep analysis of your website, focusing on cross-browser compatibility, overall performance, and broken features."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
+
+    <div id="processing-loader">
+        <div class="origami-loader">
+            <div class="loader-glow"></div>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="loop-left" points="47.5,15 17.5,85 42.5,85 57.5,50" fill="#2563EB" />
+                <polygon class="loop-top" points="47.5,15 57.5,50 82.5,50" fill="#0F172A" />
+                <polygon class="loop-bottom" points="57.5,50 42.5,85 77.5,85" fill="#38BDF8" />
+            </svg>
+        </div>
+    </div>
+
+    <div id="auzent-header"></div>
+
+    <main class="relative z-10 flex-grow container mx-auto px-4 sm:px-6 pt-28 md:pt-32 pb-12 max-w-7xl">
+      
+      <section class="min-h-[40vh] flex flex-col items-center justify-center text-center animate-on-scroll scroll-mt-28 mb-16">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-6">Auzent Quality Assurance</span>
+        
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-montserrat font-black leading-tight tracking-tight text-[#0F172A] max-w-4xl">
+          Expert <span class="text-blue-600">App Testing</span> & Web Audits
+        </h1>
+        
+        <p class="text-[#475569] text-base md:text-lg max-w-2xl leading-relaxed mt-6">
+          Protect your brand's reputation with Auzent. We provide reliable app testing, website usability checks, and official Google Play Store compliance (providing 20 testers) to secure your web development projects before your users see them.
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+            <button onclick="document.getElementById('client-intake').scrollIntoView({behavior: 'smooth'})" class="px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md shadow-blue-500/20 uppercase tracking-widest text-xs cursor-pointer">Request a Test</button>
+            <button onclick="document.getElementById('tester-portal').scrollIntoView({behavior: 'smooth'})" class="px-8 py-3.5 bg-slate-100 text-slate-700 font-bold border border-slate-300 rounded-xl hover:bg-slate-200 transition uppercase tracking-widest text-xs cursor-pointer">Auzent Tester Login</button>
+        </div>
+      </section>
+
+      <section class="mb-24 animate-on-scroll">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              
+              <div class="glass-card p-8 bg-white border-t-4 border-t-blue-600 shadow-sm relative overflow-hidden flex flex-col h-full">
+                  <div class="absolute top-0 right-0 bg-blue-50 px-3 py-1 text-[9px] font-bold text-blue-600 rounded-bl-lg uppercase tracking-widest border-b border-l border-blue-100">Top Choice</div>
+                  
+                  <img src="assets/icon.svg" alt="Auzent app testing for Google Play Store with 20 testers" class="w-10 h-10 mb-2 opacity-80" />
+                  
+                  <h2 class="text-xl font-montserrat font-bold text-[#0F172A] mb-2">Play Store App Testing</h2>
+                  <p class="text-sm text-[#475569] mb-4 flex-grow">Fulfill Google's mandatory 14-day testing rule seamlessly with a dedicated team of 20 real human testers from The Auzent.</p>
+                  <ul class="text-xs text-slate-500 space-y-2 mb-6 font-mono">
+                      <li>✓ 14 Continuous Days of Testing</li>
+                      <li>✓ 20 Real Android Devices</li>
+                      <li>✓ Detailed Bug Reports</li>
+                  </ul>
+                  <p class="text-lg font-bold text-emerald-600 border-t border-slate-100 pt-4">Starts at ₹1,500</p>
+              </div>
+
+              <div class="glass-card p-8 bg-white border border-slate-200 shadow-sm flex flex-col h-full">
+                  <img src="assets/icon.svg" alt="Auzent website audit and web development services" class="w-10 h-10 mb-2 opacity-80 grayscale" />
+                  <h2 class="text-xl font-montserrat font-bold text-[#0F172A] mb-2">Website Usability Audit</h2>
+                  <p class="text-sm text-[#475569] mb-4 flex-grow">A complete review of your website to find broken links, check mobile responsiveness, and improve your overall web development.</p>
+                  <ul class="text-xs text-slate-500 space-y-2 mb-6 font-mono">
+                      <li>✓ Mobile & Desktop Checks</li>
+                      <li>✓ Website Speed & Flow Audit</li>
+                      <li>✓ User Experience Feedback</li>
+                  </ul>
+                  <p class="text-lg font-bold text-blue-600 border-t border-slate-100 pt-4">Starts at ₹800</p>
+              </div>
+
+              <div class="glass-card p-8 bg-white border border-slate-200 shadow-sm flex flex-col h-full">
+                  <img src="assets/icon.svg" alt="Custom app testing solutions by The Auzent" class="w-10 h-10 mb-2 opacity-80 grayscale" />
+                  <h2 class="text-xl font-montserrat font-bold text-[#0F172A] mb-2">Custom App Testers</h2>
+                  <p class="text-sm text-[#475569] mb-4 flex-grow">Need a specific group of people to test your app? We can provide a custom QA team for your unique application.</p>
+                  <ul class="text-xs text-slate-500 space-y-2 mb-6 font-mono">
+                      <li>✓ Choose Your Tester Count</li>
+                      <li>✓ Both App & Website Support</li>
+                      <li>✓ Custom Test Scenarios</li>
+                  </ul>
+                  <p class="text-lg font-bold text-slate-700 border-t border-slate-100 pt-4">₹150 - ₹250 / Tester</p>
+              </div>
+
+          </div>
+      </section>
+
+      <section id="client-intake" class="animate-on-scroll scroll-mt-28 mb-32 relative z-20">
+        <div class="glass-card p-8 md:p-12 max-w-3xl mx-auto border-t-4 border-t-blue-600 relative bg-white shadow-lg rounded-3xl">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl font-montserrat font-extrabold text-[#0F172A] mb-2">Order Testing Services</h2>
+            <p class="text-[#475569] text-sm">Provide your website or app details below to start the testing process with Auzent.</p>
+          </div>
+
+          <form id="qaLeadForm" class="space-y-6 w-full">
+            
+            <input type="text" name="b_trap_1" id="b_trap_1" style="display:none" tabindex="-1" autocomplete="off" aria-label="Bot trap field">
+
+            <select id="qaServiceType" aria-label="Testing Package" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none cursor-pointer font-semibold" onchange="toggleTestingFields()">
+              <option value="" disabled selected>Select a Testing Package *</option>
+              <option value="PlayStore 14-Day">Google Play Store 14-Day App Testing (20 Testers)</option>
+              <option value="Web Audit">Comprehensive Website Audit</option>
+              <option value="Custom Allocation">Custom Tester Allocation</option>
+            </select>
+
+            <div id="customTestersContainer" class="hidden">
+                <label for="qaCustomTesters" class="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">How many testers do you need?</label>
+                <input type="number" id="qaCustomTesters" min="1" placeholder="e.g. 5" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none" />
+            </div>
+
+            <div id="qaLinkContainer">
+                <input type="text" id="qaLink" aria-label="Platform URL" placeholder="Your Website URL or App Link *" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none font-mono" />
+            </div>
+            
+            <textarea id="qaInstructions" aria-label="Specific Instructions" rows="4" placeholder="Any specific instructions for our testers?&#10;e.g., 'Make sure the login page works', 'Test the checkout button', or 'Check the website speed on mobile devices'" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none resize-none"></textarea>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" id="qaName" aria-label="Your Name" placeholder="Your Full Name *" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none" />
+              <input type="email" id="qaEmail" aria-label="Your Email" placeholder="Your Email Address *" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none" />
+            </div>
+            
+            <input type="tel" id="qaWhatsapp" aria-label="WhatsApp Number" placeholder="Your WhatsApp / Contact Number *" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-sm text-[#0F172A] focus:border-blue-600 transition outline-none" />
+
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600">
+                <strong class="text-[#0F172A]">What happens next?</strong> Once you submit this form, The Auzent team will review your app or website and send you an email with the next steps. Testing starts as soon as we confirm everything.
+                <br><br>
+                By submitting, you agree to our <a href="terms.html" class="text-blue-600 font-bold underline" target="_blank">Terms of Service</a>.
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white font-montserrat font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-md cursor-pointer uppercase tracking-widest text-xs">
+              Submit Testing Request
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section id="tester-portal" class="animate-on-scroll scroll-mt-28 mb-16">
+        <div class="glass-card p-10 bg-[#0F172A] border border-slate-800 text-white rounded-3xl shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-emerald-600 blur-[120px] opacity-10 pointer-events-none"></div>
+            
+            <div class="text-center relative z-10 mb-8">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-800 mb-4 inline-block">Auzent Testers Only</span>
+                <h2 class="text-3xl font-montserrat font-extrabold mb-2 text-white">Submit a Bug Report</h2>
+                <p class="text-slate-400 text-sm">Use this portal to report any bugs you find while testing an app or website.</p>
+            </div>
+
+            <form id="testerFeedbackForm" class="max-w-2xl mx-auto space-y-5 relative z-10">
+                
+                <input type="text" name="b_trap_2" id="b_trap_2" style="display:none" tabindex="-1" autocomplete="off" aria-label="Bot trap field">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <input type="email" id="tTesterId" aria-label="Tester Email" placeholder="Your Tester Email *" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none font-mono" />
+                    <input type="text" id="tTaskId" aria-label="Task ID" placeholder="Task ID (e.g., AZ-TST-XXXX) *" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none font-mono uppercase" />
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <input type="text" id="tDevice" aria-label="Device Details" placeholder="Your Phone Model (e.g. Pixel 7) *" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none" />
+                    <select id="tBugCategory" aria-label="Bug Category" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none cursor-pointer">
+                        <option value="" disabled selected>What kind of issue is this? *</option>
+                        <option value="UI/UX Issue">Design or Visual Issue</option>
+                        <option value="Functional Bug">Broken Button or Link</option>
+                        <option value="Performance">App Crash or Slow Loading</option>
+                        <option value="General Usability">General Feedback</option>
+                    </select>
+                </div>
+
+                <textarea id="tReview" aria-label="Bug Details" rows="4" placeholder="Please describe the bug and how we can find it... *" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 outline-none resize-none"></textarea>
+                
+                <div class="bg-slate-800 border border-slate-600 p-4 rounded-xl">
+                    <label for="tScreenshot" class="block text-[10px] text-slate-300 uppercase tracking-widest font-bold mb-2">Screenshot Proof</label>
+                    <p class="text-xs text-slate-400 mb-3">Upload your screenshot to <a href="https://imgbb.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">ImgBB</a> and paste the link below.</p>
+                    <input type="url" id="tScreenshot" placeholder="Paste the image link here" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-emerald-500 outline-none font-mono" />
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-500 transition shadow-md shadow-emerald-600/20 uppercase tracking-widest text-xs cursor-pointer">
+                    Submit Bug Report
+                </button>
+            </form>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="auzent-footer"></div>
+
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script defer src="js/firebase-config.js"></script>
+    
+    <script defer src="js/layout.js"></script>
+    <script>
+        // Form Interaction Logic
+        function toggleTestingFields() {
+            const serviceType = document.getElementById('qaServiceType').value;
+            const customContainer = document.getElementById('customTestersContainer');
+            const customInput = document.getElementById('qaCustomTesters');
+            const linkContainer = document.getElementById('qaLinkContainer');
+            const linkInput = document.getElementById('qaLink');
+
+            if (serviceType === 'Custom Allocation') {
+                customContainer.classList.remove('hidden');
+                customInput.required = true;
+            } else {
+                customContainer.classList.add('hidden');
+                customInput.required = false;
+                customInput.value = '';
+            }
+
+            if (serviceType === 'PlayStore 14-Day') {
+                linkContainer.classList.add('hidden');
+                linkInput.required = false;
+                linkInput.value = '';
+            } else {
+                linkContainer.classList.remove('hidden');
+                linkInput.required = true;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            function toggleProcessing(show) {
+                const loader = document.getElementById('processing-loader');
+                if (loader) show ? loader.classList.add('active') : loader.classList.remove('active');
+            }
+
+            // Scroll Animation Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+            // Client QA Form Submission
+            const qaForm = document.getElementById('qaLeadForm');
+            if (qaForm) {
+                qaForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    if(document.getElementById('b_trap_1').value) return; 
+                    
+                    const lastSub = localStorage.getItem('auzent_last_qa');
+                    if (lastSub && Date.now() - parseInt(lastSub) < 60000) {
+                        alert("Please wait 60 seconds before submitting another request.");
+                        return;
+                    }
+
+                    const btn = qaForm.querySelector('button');
+                    const origText = btn.textContent;
+                    btn.disabled = true;
+                    toggleProcessing(true);
+
+                    let serviceVal = document.getElementById('qaServiceType').value;
+                    let requestedTesters = "Standard";
+                    
+                    if (serviceVal === 'Custom Allocation') {
+                        requestedTesters = document.getElementById('qaCustomTesters').value;
+                        serviceVal = `Custom Allocation (${requestedTesters} Testers)`;
+                    } else if (serviceVal === 'PlayStore 14-Day') {
+                        serviceVal = 'Google Play Store 14-Day App Testing (20 Testers)';
+                    }
+
+                    const data = {
+                        projectType: 'QA Testing Service',
+                        package: serviceVal,
+                        reference: document.getElementById('qaLink').value || 'Play Store App (Link to be provided later)',
+                        features: document.getElementById('qaInstructions').value,
+                        name: document.getElementById('qaName').value,
+                        email: document.getElementById('qaEmail').value,
+                        whatsapp: document.getElementById('qaWhatsapp').value,
+                        budget: serviceVal, 
+                        timeline: 'ASAP',
+                        status: 'pending_review',
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+
+                    try {
+                        await db.collection('auzent_leads').add(data);
+                        localStorage.setItem('auzent_last_qa', Date.now().toString()); 
+                        
+                        fetch('/.netlify/functions/notifyAdmin', {
+                            method: 'POST', headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ ...data, category: 'LEAD' })
+                        }).catch(()=>{});
+
+                        btn.textContent = 'Request Sent!';
+                        btn.classList.replace('bg-blue-600', 'bg-emerald-500');
+                        qaForm.reset();
+                        toggleTestingFields(); 
+                        
+                        setTimeout(() => {
+                            btn.textContent = origText;
+                            btn.classList.replace('bg-emerald-500', 'bg-blue-600');
+                            btn.disabled = false;
+                        }, 3000);
+                    } catch (err) {
+                        btn.textContent = "Error Sending Request";
+                        btn.disabled = false;
+                    } finally {
+                        toggleProcessing(false);
+                    }
+                });
+            }
+
+            // Tester Feedback Submission
+            const testerForm = document.getElementById('testerFeedbackForm');
+            if (testerForm) {
+                testerForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    if(document.getElementById('b_trap_2').value) return; 
+
+                    const lastSub = localStorage.getItem('auzent_last_fb');
+                    if (lastSub && Date.now() - parseInt(lastSub) < 30000) {
+                        alert("Please wait 30 seconds before submitting another bug report.");
+                        return;
+                    }
+
+                    const btn = testerForm.querySelector('button');
+                    const origText = btn.textContent;
+                    btn.disabled = true;
+                    toggleProcessing(true);
+
+                    const enteredTaskId = document.getElementById('tTaskId').value.trim().toUpperCase();
+
+                    try {
+                        const taskRef = await db.collection('auzent_gateways').doc(enteredTaskId).get();
+                        
+                        if (!taskRef.exists) {
+                            alert("Error: This Task ID does not exist.");
+                            btn.disabled = false;
+                            toggleProcessing(false);
+                            return;
+                        }
+
+                        const taskData = taskRef.data();
+                        
+                        if (!taskData.is_testing_order) {
+                            alert("Error: Invalid Task Profile.");
+                            btn.disabled = false;
+                            toggleProcessing(false);
+                            return;
+                        }
+
+                        if (taskData.status === 'Completed / Report Sent') {
+                            alert("Task Closed: This testing project is already finished.");
+                            btn.disabled = false;
+                            toggleProcessing(false);
+                            return;
+                        }
+
+                        const data = {
+                            testerId: document.getElementById('tTesterId').value,
+                            taskId: enteredTaskId,
+                            deviceDetails: document.getElementById('tDevice').value,
+                            bugCategory: document.getElementById('tBugCategory').value,
+                            detailedReview: document.getElementById('tReview').value,
+                            screenshotUrl: document.getElementById('tScreenshot').value, 
+                            status: 'pending_review',
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+
+                        await db.collection('testing_feedback').add(data);
+                        localStorage.setItem('auzent_last_fb', Date.now().toString());
+
+                        btn.textContent = 'Report Submitted!';
+                        btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+                        testerForm.reset();
+                        
+                        setTimeout(() => {
+                            btn.textContent = origText;
+                            btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+                            btn.disabled = false;
+                        }, 3000);
+
+                    } catch (err) {
+                        btn.textContent = "Database Error";
+                        btn.disabled = false;
+                    } finally {
+                        toggleProcessing(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

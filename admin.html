@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Auzent Admin Dashboard - Manage custom web development and app testing projects safely.">
+    <title>Admin Dashboard | The Auzent</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 text-[#0F172A] font-sans antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-blue-600 selection:text-white">
+
+    <section id="login-screen" class="fixed inset-0 z-50 bg-slate-50 flex items-center justify-center p-4">
+        <div class="glass-card p-8 md:p-10 w-full max-w-md border-t-4 border-t-blue-600 text-center relative overflow-hidden bg-white shadow-2xl">
+            <img src="assets/icon.svg" alt="Auzent Admin Dashboard Logo" class="w-12 h-12 mx-auto mb-6">
+            <h2 class="text-2xl font-montserrat font-extrabold text-[#0F172A] mb-2">Admin Login</h2>
+            <p class="text-xs text-[#475569] mb-8">Please log in to manage your Auzent projects.</p>
+
+            <form id="adminLoginForm" class="space-y-4">
+                <input type="email" id="adminEmail" placeholder="Admin Email" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-blue-600 transition font-mono">
+                <input type="password" id="adminPassword" placeholder="Admin Password" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-blue-600 transition font-mono tracking-widest">
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-montserrat font-bold py-3.5 rounded-xl transition-all shadow-md cursor-pointer">
+                    Login to Dashboard
+                </button>
+                <p id="loginError" class="text-red-500 text-xs hidden mt-4 font-bold"></p>
+            </form>
+        </div>
+    </section>
+
+    <section id="dashboard-screen" class="relative z-10 hidden flex-1 p-4 md:p-10 w-full max-w-7xl mx-auto transition-all duration-500">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-3xl font-montserrat font-extrabold text-[#0F172A]">Auzent Dashboard</h1>
+                <p class="text-[10px] text-emerald-600 animate-pulse font-mono tracking-[0.2em] mt-1 uppercase font-bold">● System Online</p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button onclick="openCreateModal('auzent_utilities')" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-700 transition-all shadow-md cursor-pointer uppercase tracking-widest">+ Add New Tool</button>
+            </div>
+
+            <button id="logoutBtn" class="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded-xl hover:bg-red-600 hover:text-white transition-all text-xs font-bold cursor-pointer">Logout</button>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <div class="glass-card p-5 border-b-4 border-b-blue-600 bg-white shadow-sm">
+                <p class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Total Revenue</p>
+                <h2 id="stat-revenue" class="text-2xl font-montserrat font-extrabold mt-1 text-emerald-600">₹0</h2>
+            </div>
+            <div class="glass-card p-5 border-b-4 border-b-sky-500 bg-white shadow-sm">
+                <p class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Active Portals</p>
+                <h2 id="stat-active" class="text-2xl font-montserrat font-extrabold mt-1 text-[#0F172A]">0</h2>
+            </div>
+            <div class="glass-card p-5 border-b-4 border-b-amber-500 bg-white shadow-sm">
+                <p class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">New Leads</p>
+                <h2 id="stat-pending" class="text-2xl font-montserrat font-extrabold mt-1 text-[#0F172A]">0</h2>
+            </div>
+            <div class="glass-card p-5 border-b-4 border-b-emerald-500 bg-white shadow-sm">
+                <p class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Completed</p>
+                <h2 id="stat-done" class="text-2xl font-montserrat font-extrabold mt-1 text-[#475569]">0</h2>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-200 mb-8 gap-4 pb-0 md:pb-4">
+            <div class="flex gap-6 md:gap-8 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+                <button onclick="switchTab('leads')" id="tab-leads" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-2 transition-all whitespace-nowrap cursor-pointer">New Requests</button>
+                <button onclick="switchTab('contacts')" id="tab-contacts" class="text-sm font-bold text-[#475569] pb-2 hover:text-[#0F172A] transition-all whitespace-nowrap cursor-pointer">Messages</button>
+                <button onclick="switchTab('reports')" id="tab-reports" class="text-sm font-bold text-[#475569] pb-2 hover:text-[#0F172A] transition-all whitespace-nowrap cursor-pointer">Issue Reports</button>
+                <button onclick="switchTab('workspaces')" id="tab-workspaces" class="text-sm font-bold text-[#475569] pb-2 hover:text-[#0F172A] transition-all whitespace-nowrap cursor-pointer">Active Projects</button>
+                <button onclick="switchTab('history')" id="tab-history" class="text-sm font-bold text-[#475569] pb-2 hover:text-[#0F172A] transition-all whitespace-nowrap cursor-pointer">Activity Logs</button>
+            </div>
+
+            <div class="w-full md:w-64 mb-4 md:mb-0">
+                <input type="text" onkeyup="searchDashboard(this.value)" placeholder="Search Name or ID..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-xs text-[#0F172A] outline-none focus:border-blue-600 transition-all shadow-sm">
+            </div>
+        </div>
+
+        <div id="main-content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20"></div>
+    </section>
+
+    <div id="mgmtModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-3xl p-6 md:p-10 relative border-t-4 border-t-blue-600 my-auto bg-white shadow-2xl rounded-3xl">
+            <button onclick="closeMgmtModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-2xl font-bold cursor-pointer">×</button>
+
+            <div class="mb-8 flex justify-between items-end border-b border-slate-100 pb-4">
+                <div>
+                    <h2 id="modalClientName" class="text-2xl font-montserrat font-bold text-[#0F172A]">Client Name</h2>
+                    <p id="modalProjectId" class="text-xs text-[#475569] font-mono mt-1 uppercase tracking-widest font-bold"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h3 class="text-blue-600 font-bold uppercase text-[10px] tracking-[0.2em] mb-4">Finance & Revenue</h3>
+                    <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div class="space-y-2">
+                            <label class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Total Price (₹)</label>
+                            <input type="number" id="mTotal" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-[#0F172A] outline-none focus:border-blue-600 text-sm font-mono font-bold">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Paid Amount (₹)</label>
+                            <input type="number" id="mPaid" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-emerald-600 font-bold outline-none focus:border-blue-600 text-sm font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-blue-600 font-bold uppercase text-[10px] tracking-[0.2em] mb-4">Project Status</h3>
+                    <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <select id="mStatus" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-[#0F172A] outline-none focus:border-blue-600 cursor-pointer font-semibold">
+                            <option value="Development in Progress">Development in Progress</option>
+                            <option value="Testing Phase">Testing Phase</option>
+                            <option value="Live / Handover">Live / Handover</option>
+                            <option value="Under Maintenance">Under Maintenance</option>
+                        </select>
+                        <input type="text" id="mUrl" placeholder="Live Preview Link" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-xs text-[#0F172A] outline-none focus:border-blue-600 font-mono mt-2">
+                        <label class="flex items-center gap-3 cursor-pointer pt-2">
+                            <input type="checkbox" id="mPreviewActive" class="w-5 h-5 accent-blue-600 rounded cursor-pointer">
+                            <span class="text-xs font-bold text-[#475569] uppercase tracking-wide">Enable Preview Access for Client</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h3 class="text-blue-600 font-bold uppercase text-[10px] tracking-[0.2em]">Actions & Documents</h3>
+                    <div class="flex flex-col gap-3">
+                        <button id="btnViewBlueprint" class="w-full bg-slate-100 text-slate-800 border border-slate-300 text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-slate-200 transition shadow-sm flex items-center justify-center gap-2">📄 View Project Details</button>
+                        <button id="btnGenerateInvoice" class="w-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-emerald-600 hover:text-white transition shadow-sm flex items-center justify-center gap-2">🧾 Download Invoice</button>
+
+                        <div class="flex gap-2">
+                            <button id="btnRemindWA" class="w-full bg-blue-50 text-blue-700 border border-blue-200 text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-blue-600 hover:text-white transition shadow-sm flex items-center justify-center gap-2">💬 Send WhatsApp</button>
+                            <button id="btnRemindEmail" class="w-full bg-blue-50 text-blue-700 border border-blue-200 text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-blue-600 hover:text-white transition shadow-sm flex items-center justify-center gap-2">📧 Send Email</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-blue-600 font-bold uppercase text-[10px] tracking-[0.2em]">Files & Timers</h3>
+                    <input type="text" id="mAssets" placeholder="Google Drive Link for Files" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs text-[#0F172A] outline-none focus:border-blue-600 font-mono mb-2">
+
+                    <div class="flex gap-2">
+                        <button onclick="startScopeTimer()" class="flex-1 bg-slate-800 text-white border border-slate-700 text-[10px] py-2 rounded-lg font-bold cursor-pointer hover:bg-blue-600 transition uppercase tracking-widest">Start 48h Timer</button>
+                        <button onclick="forceLock()" class="flex-1 bg-red-50 text-red-600 border border-red-200 text-[10px] py-2 rounded-lg font-bold cursor-pointer hover:bg-red-600 hover:text-white transition uppercase tracking-widest">Lock Details Now</button>
+                    </div>
+                    <p id="mTimerStatus" class="text-[10px] text-[#475569] font-mono font-bold mt-1">Status: Waiting for Client</p>
+                </div>
+            </div>
+
+            <button onclick="archiveProject()" class="w-full bg-slate-200 text-slate-700 hover:bg-slate-300 mt-4 py-3 rounded-xl font-bold transition-all cursor-pointer uppercase tracking-widest text-xs mb-2">📦 Archive Project</button>
+            <button onclick="saveProjectChanges()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-montserrat font-bold text-sm shadow-md transition-all cursor-pointer uppercase tracking-widest">Save Changes</button>
+        </div>
+    </div>
+
+    <div id="testingMgmtModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-xl p-8 relative border-t-4 border-t-purple-600 my-auto bg-white shadow-2xl rounded-3xl">
+            <button onclick="closeTestingMgmtModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-2xl font-bold cursor-pointer">×</button>
+            
+            <div class="mb-6 border-b border-slate-100 pb-4">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-3 py-1 rounded-md border border-purple-200">App Testing Order</span>
+                <h2 id="tmClientName" class="text-2xl font-montserrat font-bold text-[#0F172A] mt-3">Client Name</h2>
+                <p id="tmTaskId" class="text-xs text-[#475569] font-mono mt-1 uppercase tracking-widest font-bold"></p>
+            </div>
+            
+            <div class="space-y-4 mb-8">
+                <h3 class="text-purple-600 font-bold uppercase text-[10px] tracking-[0.2em]">Finance & Status</h3>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Total Price (₹)</label>
+                        <input type="number" id="tmTotal" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2 text-[#0F172A] outline-none font-mono font-bold">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Paid Amount (₹)</label>
+                        <input type="number" id="tmPaid" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2 text-emerald-600 font-bold outline-none font-mono">
+                    </div>
+                    <div class="col-span-2 space-y-1 mt-2">
+                        <label class="text-[10px] text-[#475569] uppercase font-bold tracking-widest">Order Status</label>
+                        <select id="tmStatus" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-[#0F172A] outline-none font-semibold cursor-pointer">
+                            <option value="Payment Pending">Payment Pending</option>
+                            <option value="Testing Active">Testing Active</option>
+                            <option value="Completed / Report Sent">Completed / Report Sent</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="viewTesterFeedbacks()" class="w-full bg-slate-800 text-white border border-slate-700 text-xs py-3.5 rounded-xl font-bold cursor-pointer hover:bg-slate-900 transition shadow-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                    🐛 View Bug Reports
+                </button>
+                <button onclick="archiveProject()" class="w-full bg-slate-200 text-slate-700 hover:bg-slate-300 mt-2 py-3 rounded-xl font-bold transition-all cursor-pointer uppercase tracking-widest text-xs mb-1">📦 Archive Project</button>
+                <button onclick="saveTestingOrderChanges()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 rounded-xl font-bold shadow-md transition-all cursor-pointer uppercase tracking-widest text-xs">
+                    Save Order Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="testerFeedbackModal" class="fixed inset-0 z-[130] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-4xl p-8 relative border-t-4 border-t-purple-600 bg-white shadow-2xl rounded-3xl my-auto max-h-[90vh] flex flex-col">
+            <button onclick="document.getElementById('testerFeedbackModal').classList.add('hidden'); document.getElementById('testerFeedbackModal').classList.remove('flex');" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">×</button>
+            
+            <h2 class="text-2xl font-montserrat font-extrabold text-[#0F172A] mb-2 uppercase tracking-widest">Tester Bug Reports</h2>
+            
+            <div class="flex justify-between items-center mb-6">
+                <p id="tfTaskId" class="text-xs text-slate-500 font-mono font-bold"></p>
+                <button onclick="generateQAPDF()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-md hover:bg-blue-700 cursor-pointer uppercase tracking-widest">
+                    📄 Download PDF Report
+                </button>
+            </div>
+            
+            <div id="testerFeedbackContent" class="flex-1 overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+            </div>
+        </div>
+    </div>
+
+    <div id="blueprintViewModal" class="fixed inset-0 z-[130] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-3xl p-8 relative border-t-4 border-t-blue-600 bg-white shadow-2xl rounded-3xl my-auto max-h-[90vh] flex flex-col">
+            <button onclick="document.getElementById('blueprintViewModal').classList.add('hidden'); document.getElementById('blueprintViewModal').classList.remove('flex');" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">×</button>
+            <h2 class="text-2xl font-montserrat font-extrabold text-[#0F172A] mb-2 uppercase tracking-widest">Client Project Details</h2>
+            <p class="text-xs text-slate-500 mb-6 font-mono">View everything the client has submitted.</p>
+
+            <div id="blueprintContent" class="flex-1 overflow-y-auto pr-4 space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-200"></div>
+            <button onclick="document.getElementById('blueprintViewModal').classList.add('hidden'); document.getElementById('blueprintViewModal').classList.remove('flex');" class="w-full bg-slate-900 text-white mt-6 py-3.5 rounded-xl font-bold text-sm shadow-md transition-all cursor-pointer">Close Window</button>
+        </div>
+    </div>
+
+    <div id="leadDetailsModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-3xl p-8 md:p-10 relative border-t-4 border-t-blue-600 bg-white shadow-2xl rounded-3xl my-auto max-h-[95vh] flex flex-col">
+            <button onclick="closeLeadModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">×</button>
+
+            <div class="mb-6 border-b border-slate-100 pb-4">
+                <h2 id="ldName" class="text-3xl font-montserrat font-extrabold text-[#0F172A] flex items-center gap-3">
+                    Client Name
+                    <span id="ldReturningTag" class="hidden bg-blue-100 text-blue-700 text-[10px] px-3 py-1 rounded-md font-bold border border-blue-200 uppercase tracking-widest align-middle">Returning</span>
+                </h2>
+                <p id="ldType" class="text-blue-600 font-mono font-bold text-sm uppercase mt-2 tracking-widest">Project Type</p>
+            </div>
+
+            <div class="overflow-y-auto flex-1 pr-2">
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-6">
+                    <p class="text-[10px] text-blue-800 uppercase font-bold tracking-widest mb-3">Security & Tracking</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono text-[#0F172A]">
+                        <p><strong>IP Address:</strong> <span id="ldIP" class="text-slate-600">N/A</span></p>
+                        <p><strong>Device:</strong> <span id="ldDevice" class="text-slate-600 truncate block">N/A</span></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-sm font-mono bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <div class="space-y-4">
+                        <p class="text-[#475569] uppercase tracking-wider text-[10px] font-bold">Email: <br><a id="ldEmail" href="#" class="text-[#0F172A] block underline font-bold mt-1 text-xs"></a></p>
+                        <p class="text-[#475569] uppercase tracking-wider text-[10px] font-bold">WhatsApp: <br><a id="ldWhatsapp" href="#" target="_blank" class="text-blue-600 block underline font-bold mt-1 text-xs"></a></p>
+                        <p class="text-[#475569] uppercase tracking-wider text-[10px] font-bold">Client Budget: <br><span id="ldBudget" class="text-emerald-600 block font-bold text-base mt-1"></span></p>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[#475569] uppercase tracking-wider text-[10px] font-bold">Target Timeline: <br><span id="ldTimeline" class="text-[#0F172A] block font-bold mt-1 text-xs"></span></p>
+                        <p class="text-[#475569] uppercase tracking-wider text-[10px] font-bold">Reference Material: <br><a id="ldRef" href="#" target="_blank" class="text-blue-600 block break-all hover:underline mt-1 text-xs">View Project Link</a></p>
+                    </div>
+                </div>
+
+                <div class="mb-6 text-sm">
+                    <h3 class="text-[#0F172A] font-bold mb-2 uppercase tracking-widest text-xs">Requirements Given:</h3>
+                    <div class="bg-white p-5 rounded-xl border border-slate-300">
+                        <p id="ldFeatures" class="text-[#475569] leading-relaxed whitespace-pre-wrap text-sm"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100">
+                <div class="mb-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                    <label class="block text-[10px] text-emerald-800 uppercase font-bold mb-2 tracking-widest">Set Final Project Price (₹) to Accept</label>
+                    <input type="number" id="onboardPrice" placeholder="e.g. 25000" class="w-full bg-white border border-emerald-300 rounded-lg px-4 py-2.5 text-base text-[#0F172A] outline-none focus:border-emerald-600 font-mono font-bold shadow-sm">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="hidden" id="currentLeadId">
+                    <button id="btnApproveMain" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-md transition text-xs cursor-pointer uppercase tracking-widest">Approve & Create Portal</button>
+                    <button id="btnRejectMain" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold py-3.5 rounded-xl transition text-xs cursor-pointer uppercase tracking-widest">Reject Lead</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageViewModal" class="fixed inset-0 z-[130] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="glass-card w-full max-w-lg p-8 relative border-t-4 border-t-blue-600 bg-white shadow-2xl rounded-3xl">
+            <button onclick="closeMessageModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">×</button>
+            <div class="mb-6">
+                <span id="msgTag" class="text-[10px] uppercase font-bold tracking-widest bg-blue-50 text-blue-600 px-3 py-1.5 rounded-md border border-blue-100 font-mono">Entry</span>
+                <h2 id="msgSubject" class="text-2xl font-montserrat font-bold text-[#0F172A] mt-4">Sender Name</h2>
+                <p class="text-xs text-[#475569] mt-2 font-mono bg-slate-100 p-2 rounded inline-block">📧 <a id="msgEmail" href="#" class="hover:text-blue-600 underline font-bold">email@domain.com</a></p>
+                <p id="msgPlatform" class="text-xs text-[#475569] mt-2 font-mono bg-slate-100 p-2 rounded hidden"></p>
+            </div>
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 mb-6 max-h-64 overflow-y-auto text-sm shadow-inner">
+                <p id="msgBody" class="text-[#475569] leading-relaxed whitespace-pre-wrap"></p>
+            </div>
+            <div class="flex gap-4">
+                <button id="btnResolveMsg" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl text-xs transition cursor-pointer uppercase tracking-widest shadow-md">Mark as Done</button>
+                <button id="btnDeleteMsg" class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold py-3.5 rounded-xl text-xs transition cursor-pointer uppercase tracking-widest">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="createModal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="glass-card w-full max-w-md p-8 relative border-t-4 border-t-blue-600 bg-white shadow-2xl rounded-3xl">
+            <button onclick="closeCreateModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">×</button>
+            <h2 id="createTitle" class="text-2xl font-montserrat font-extrabold text-[#0F172A] mb-6 uppercase tracking-wider">Add Developer Tool</h2>
+            <form id="createForm" class="space-y-4 text-sm font-semibold">
+                <input type="hidden" id="targetCollection" value="auzent_utilities">
+                <input type="text" id="cTitle" placeholder="Tool Name" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-[#0F172A] focus:border-blue-600 outline-none">
+                <input type="text" id="cImage" placeholder="Image Link (Optional)" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-[#0F172A] focus:border-blue-600 outline-none">
+                <input type="text" id="cLive" placeholder="Live Preview Link" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-[#0F172A] focus:border-blue-600 outline-none">
+                <input type="text" id="cTech" placeholder="Tech Stack (e.g. React, Tailwind)" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-[#0F172A] focus:border-blue-600 outline-none">
+                <div id="microOnly">
+                    <input type="text" id="cRepo" placeholder="GitHub Repository Link" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-[#0F172A] focus:border-blue-600 outline-none">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-4 mt-2 rounded-xl font-bold text-white transition cursor-pointer shadow-md uppercase tracking-widest text-xs">Publish Tool</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="liveToast" class="fixed bottom-10 right-10 z-[200] translate-y-20 opacity-0 transition-all duration-500 glass-card px-6 py-4 border-l-4 border-l-emerald-500 flex items-center gap-4 bg-white shadow-xl pointer-events-none rounded-2xl">
+        <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]"></div>
+        <div>
+            <h4 class="text-[#0F172A] font-bold text-xs uppercase tracking-widest">Success</h4>
+            <p id="toastMsg" class="text-[#475569] text-[10px] font-mono mt-0.5">Action completed.</p>
+        </div>
+    </div>
+
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script defer src="js/firebase-config.js"></script>
+    <script defer src="js/admin.js"></script>
+</body>
+
+</html>

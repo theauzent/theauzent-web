@@ -1,0 +1,28 @@
+<svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;800&display=swap');
+        .small-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+            fill: #94a3b8; /* Soft slate color */
+        }
+        .large-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 52px;
+            letter-spacing: 0.05em;
+            fill: #ffffff; /* Pure white text */
+        }
+    </style>
+    <g transform="translate(10, 10)">
+        <polygon points="47.5,15 17.5,85 42.5,85 57.5,50" fill="#2563EB" />
+        <polygon points="47.5,15 57.5,50 82.5,50" fill="#1E293B" />
+        <polygon points="57.5,50 42.5,85 77.5,85" fill="#38BDF8" />
+    </g>
+    <g>
+        <text x="120" y="45" class="small-text">the</text>
+        <text x="120" y="90" class="large-text">AUZENT</text>
+    </g>
+</svg>

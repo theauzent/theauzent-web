@@ -1,0 +1,77 @@
+1. Company Overview & Core Philosophy
+The Auzent is a specialized enterprise digital architecture firm. We reject pre-made templates and standard drag-and-drop website builders in favor of custom, high-performance software engineering.
+
+Founded By: Ashutosh Kaushal (Founder & CEO, Chief Architect)
+
+Core Focus: Decoupled web applications, native Kotlin Android systems, cloud infrastructure planning, and rigorous enterprise QA auditing.
+
+Target Audience: Startups, growing businesses, and enterprises requiring robust, scalable, and secure digital execution.
+
+2. Comprehensive Service Architecture
+A. Enterprise Web Architecture
+Decoupled Systems: We design architectures where the frontend interface operates completely independently from the backend server logic via secure APIs.
+
+Benefits: Delivers lightning-fast page loading speeds, eliminates single points of failure, ensures bank-grade data security, and allows independent horizontal scaling.
+
+B. Native Kotlin Android Applications
+Strictly Native: Unlike cross-platform frameworks that introduce overhead, our mobile applications are engineered natively using Kotlin.
+
+Benefits: Full utilization of device hardware, zero latency, smooth rendering, and deep integration with the Android ecosystem.
+
+C. Enterprise QA & Application Testing
+Google Play Store 14-Day Compliance Testing: To satisfy Google’s stringent closed-testing requirements for production deployment, we allocate 12 to 15 real, non-developer human testers to interact with the app continuously for 14 days.
+
+Web Usability Audits: Deep manual reviews analyzing cross-browser compatibility, UI/UX interaction friction, responsive design anomalies, and speed bottlenecks.
+
+Custom QA Allocation: Scalable deployment of vetted testers tailored to custom application scenarios or niche target demographics.
+
+3. Secure Operational Workflows & Client Portal (Gateway)
+The Auzent operates entirely through an encrypted workflow system to protect client intellectual property and ensure contract clarity.
+
+Project Initiation & Intake: Clients submit their scope through our structured inquiry form, which logs metadata (IP verification and user-agent tracking for non-repudiation) into a secure Firebase database.
+
+Gateway Provisioning: Upon administrative approval, an encrypted workspace is generated, providing the client with a unique Workspace ID and a 4-digit Security PIN.
+
+The 48-Hour Blueprint Freeze: Once a workspace is active, the client submits detailed requirements. A precise countdown timer is initiated. After 48 hours, the architecture blueprint cryptographically freezes to lock development parameters.
+
+Milestone Financial Clearance: Payments operate on clear structural thresholds (e.g., Base 30%, Beta Preview 60%, Launch Handover 100%). Previews and code handovers unlock automatically as financial milestones are validated.
+
+Secure Asset Vault: Confidential assets (vector logos, brand manuals, and cloud console keys) are uploaded through an isolated encrypted pipeline.
+
+4. Frequently Asked Questions (FAQ)
+Q: Do your project valuations include server hosting or domains?
+
+A: No. Project pricing strictly covers software engineering and technical implementation. Third-party infrastructure costs (AWS/GCP cloud servers, custom domains, or app store developer accounts) remain the client's responsibility.
+
+Q: How does the Google Play Store testing service work?
+
+A: We provide real human testers who opt-in and test your app daily for the mandatory 14-day window, helping you clear Google's production publishing criteria safely.
+
+Q: Who owns the source code upon project completion?
+
+A: Upon 100% financial clearance, complete intellectual property rights and source code ownership transfer directly to the client.
+
+5. Official Network & Communication Vectors
+Official Website: https://theauzent.netlify.app/
+
+Secure Client Gateway: https://theauzent.netlify.app/gateway.html
+
+QA Testing Portal: https://theauzent.netlify.app/testing.html
+
+Corporate Profile: https://theauzent.netlify.app/about.html
+
+Terms of Service: https://theauzent.netlify.app/terms.html
+
+Privacy Policy: https://theauzent.netlify.app/privacy.html
+
+Primary Contact Email: theauzent@gmail.com
+
+Direct Broadcasts & Channels:
+
+Telegram: https://t.me/theauzent
+
+GitHub Repository: https://github.com/theauzent
+
+Instagram: https://instagram.com/theauzent
+
+YouTube: https://youtube.com/@theauzent

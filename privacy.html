@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Read the Privacy Policy for Auzent. Learn how we safely handle and protect your personal information and project details during web and app development.">
+    
+    <title>Privacy Policy | Auzent - Web & App Development</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
+
+    <div id="auzent-header"></div>
+
+    <main class="relative z-10 flex-grow container mx-auto px-4 sm:px-6 pt-32 pb-20 max-w-4xl">
+        <div class="mb-10 text-center animate-on-scroll">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 mb-4 inline-block">Data Protection</span>
+            <h1 class="text-3xl md:text-4xl font-montserrat font-black text-[#0F172A] mb-4">Privacy Policy</h1>
+            <p class="text-slate-500 text-sm">How Auzent safely collects and protects your personal information.</p>
+        </div>
+
+        <div class="glass-card bg-white p-8 md:p-12 border border-slate-200 rounded-3xl shadow-sm animate-on-scroll">
+            <div class="space-y-8 text-sm md:text-base text-[#475569] leading-relaxed">
+                
+                <section>
+                    <h2 class="text-lg font-montserrat font-bold text-[#0F172A] mb-3">1. Information We Collect</h2>
+                    <p>To work with you on your web development or app project, we need a few basic details. This includes your name, email address, phone number (WhatsApp), and your project notes. For security purposes, our website also records your IP address and device type when you submit a project request or log into your Client Portal.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-montserrat font-bold text-[#0F172A] mb-3">2. How We Use Your Data</h2>
+                    <p>We only use your information to help build and manage your project. Specifically, we use it to:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-2 text-sm">
+                        <li>Create and maintain your private Client Portal workspace.</li>
+                        <li>Contact you about project updates, questions, and payment milestones.</li>
+                        <li>Keep our website safe and prevent spam or fake requests.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-montserrat font-bold text-[#0F172A] mb-3">3. How We Protect Your Data</h2>
+                    <p>Your project details, files, and contact information are safely stored in secure database. Nobody can access your Client Portal without your unique Workspace ID and Security PIN. We promise that we will never sell or share your personal information with other companies for advertising.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-montserrat font-bold text-[#0F172A] mb-3">4. Cookies</h2>
+                    <p>Our website uses a small amount of basic cookies to keep you safely logged in while you use your Client Portal. We do not use harmful ad-tracking cookies to follow you across the internet.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-montserrat font-bold text-[#0F172A] mb-3">5. Contact Us</h2>
+                    <p>If you have any questions about how we keep your project details safe, you can reach out to us at any time.</p>
+                    <div class="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-[#0F172A]">
+                        <strong>Email:</strong> theauzent@gmail.com <br>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="auzent-footer"></div>
+    <script defer src="js/layout.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

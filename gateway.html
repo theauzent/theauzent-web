@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Auzent Client Portal - Securely track your custom web development, native Android apps, and app testing projects.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Client Portal | The Auzent</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 text-[#0F172A] min-h-screen overflow-x-hidden selection:bg-blue-600 selection:text-white font-sans antialiased">
+
+    <div id="processing-loader">
+        <div class="origami-loader">
+            <div class="loader-glow"></div>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="loop-left" points="47.5,15 17.5,85 42.5,85 57.5,50" fill="#2563EB" />
+                <polygon class="loop-top" points="47.5,15 57.5,50 82.5,50" fill="#0F172A" />
+                <polygon class="loop-bottom" points="57.5,50 42.5,85 77.5,85" fill="#38BDF8" />
+            </svg>
+        </div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-40 backdrop-blur-md bg-white/90 border-b border-slate-200 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="assets/icon.svg" alt="The Auzent Logo" class="w-7 h-7">
+            <span class="font-montserrat font-bold text-sm tracking-wider uppercase text-[#0F172A] hidden sm:block">Client Portal</span>
+        </div>
+        <div id="auth-status" class="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full" aria-live="polite">
+            <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
+            <span class="text-xs text-slate-500 font-mono font-bold tracking-tighter" id="status-text">Not Logged In</span>
+        </div>
+    </nav>
+
+    <main class="relative z-10 container mx-auto px-4 md:px-6 pt-32 pb-24 max-w-7xl flex flex-col items-center justify-center min-h-screen">
+
+        <div id="login-view" class="w-full max-w-md animate-on-scroll is-visible">
+            <div class="glass-card p-10 border-t-4 border-t-blue-600 relative overflow-hidden bg-white shadow-xl">
+                <div class="text-center mb-8">
+                    <img src="assets/icon.svg" alt="The Auzent - Custom Web and App Development" class="w-12 h-12 mx-auto mb-4">
+                    <h1 class="text-2xl font-montserrat font-extrabold tracking-wide text-[#0F172A] mb-2 uppercase">Portal Access</h1>
+                    <p class="text-slate-500 text-sm">Please enter your Workspace ID and Security PIN.</p>
+                </div>
+
+                <form id="portalLoginForm" class="space-y-5">
+                    <div>
+                        <input type="text" id="clientId" aria-label="Workspace ID" placeholder="Workspace ID (e.g. AZ-XXXX)" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-blue-600 transition font-mono uppercase tracking-wider">
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="clientPin" aria-label="Security PIN" placeholder="4-Digit PIN" pattern="[0-9]{4}" maxlength="4" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-blue-600 transition tracking-[0.5em] text-center font-mono pr-12">
+                        <button type="button" id="togglePinBtn" aria-label="Toggle PIN visibility" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition cursor-pointer text-xs font-bold">
+                            SHOW
+                        </button>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white font-montserrat font-bold py-3.5 rounded-xl hover:bg-blue-700 transition-all shadow-md uppercase tracking-widest text-sm cursor-pointer">
+                        Login to Portal
+                    </button>
+                    <p id="loginError" class="text-center text-xs text-red-500 hidden mt-4 font-mono font-bold" aria-live="assertive"></p>
+                </form>
+            </div>
+        </div>
+
+        <div id="dashboard-view" class="hidden w-full flex-col gap-8 mt-4 animate-on-scroll is-visible">
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 border-b border-slate-200 pb-6 gap-4">
+                <div>
+                    <h1 class="text-3xl font-montserrat font-extrabold text-[#0F172A]">Workspace: <span id="dash-workspace-id" class="text-blue-600 font-mono">AZ-XXXX</span></h1>
+                    <p class="text-slate-500 mt-1 text-sm font-semibold">Project Status: <span id="dash-status" class="text-[#0F172A]">Development in Progress</span></p>
+                </div>
+                <button id="logoutBtn" class="text-xs text-slate-500 hover:text-red-500 transition-colors font-mono border border-slate-300 bg-white px-4 py-2 rounded-lg hover:border-red-500 uppercase tracking-tighter shadow-sm cursor-pointer">
+                    Logout
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2">
+
+                    <div id="live-engineering-feed" class="mb-8 glass-card px-6 py-5 border border-slate-200 bg-white shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4 transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">👀</span>
+                            <div>
+                                <h2 class="text-lg font-montserrat font-bold text-[#0F172A]">Live Project Preview</h2>
+                                <p class="text-slate-500 text-[10px] uppercase tracking-wider font-mono">Secure Access Link</p>
+                            </div>
+                        </div>
+                        <button id="openSecurePreviewBtn" class="px-5 py-2.5 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-blue-700 shadow-md transition-all pointer-events-none opacity-50 w-full sm:w-auto">
+                            Waiting for Link...
+                        </button>
+                    </div>
+
+                    <div id="testing-phase-panel" class="hidden glass-card p-6 md:p-10 shadow-lg bg-white relative border-t-4 border-t-amber-500 mb-8 transition-all">
+                        <h2 class="text-xl font-montserrat font-extrabold flex items-center gap-2 text-[#0F172A] mb-2">⚙️ App Testing & QA Active</h2>
+                        <p class="text-sm text-slate-500">Your project is currently undergoing deep testing and quality checks. We will notify you once everything is verified and bug-free.</p>
+                    </div>
+
+                    <div id="handover-phase-panel" class="hidden glass-card p-6 md:p-10 shadow-lg bg-white relative border-t-4 border-t-blue-600 mb-8 transition-all">
+                        <h2 class="text-xl font-montserrat font-extrabold flex items-center gap-2 text-[#0F172A] mb-2">🎉 Project Completed & Ready</h2>
+                        <p class="text-sm text-slate-500 mb-6">Your custom software is successfully deployed! You can download your source code files below and leave us a quick review.</p>
+                        
+                        <a id="finalAssetBtn" href="#" target="_blank" rel="noopener noreferrer" class="hidden w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl uppercase tracking-widest text-xs shadow-md mb-6 text-center hover:bg-slate-800 transition">📥 Download Source Code</a>
+                        
+                        <form id="feedbackForm" class="space-y-4">
+                            <select id="fRating" aria-label="Rate Experience" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 cursor-pointer font-bold">
+                                <option value="" disabled selected>How was your experience? *</option>
+                                <option value="5">⭐⭐⭐⭐⭐ - Excellent (Highly Recommended)</option>
+                                <option value="4">⭐⭐⭐⭐ - Great (Smooth Experience)</option>
+                                <option value="3">⭐⭐⭐ - Good (Met Expectations)</option>
+                            </select>
+                            <textarea id="fReview" aria-label="Review Text" rows="3" required placeholder="Please leave a quick review about your experience working with The Auzent... *" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 resize-none"></textarea>
+                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition uppercase tracking-widest text-xs cursor-pointer shadow-md">Submit Review</button>
+                        </form>
+                        <div id="feedbackSuccess" class="hidden mt-4 text-emerald-700 font-bold text-sm bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center">
+                            Thank you for your feedback! We look forward to working with you again.
+                        </div>
+                    </div>
+
+                    <div id="maintenance-phase-panel" class="hidden glass-card p-6 md:p-10 shadow-lg bg-white relative border-t-4 border-t-emerald-500 mb-8 transition-all">
+                        <h2 class="text-xl font-montserrat font-extrabold flex items-center gap-2 text-[#0F172A] mb-2">🛠️ Support & Maintenance</h2>
+                        <p class="text-sm text-slate-500 mb-6">Your project is protected under active maintenance. Submit a ticket below if you need any technical support or updates.</p>
+                        
+                        <form id="maintenanceForm" class="space-y-4">
+                            <select id="mTicketType" aria-label="Support Request Type" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:border-emerald-500 cursor-pointer font-bold">
+                                <option value="" disabled selected>Select Support Type *</option>
+                                <option value="Content Update">Text / Image Update</option>
+                                <option value="Technical Issue">Technical Bug / Fix Needed</option>
+                                <option value="New Feature Request">Request a New Feature (Billed Separately)</option>
+                            </select>
+                            <textarea id="mTicketDesc" aria-label="Ticket Description" rows="4" required placeholder="Please describe what you need help with... *" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:border-emerald-500 resize-none"></textarea>
+                            <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl hover:bg-emerald-700 transition uppercase tracking-widest text-xs cursor-pointer shadow-md">Send Support Ticket</button>
+                        </form>
+                    </div>
+
+                    <div id="engineering-phase-panel" class="glass-card p-6 md:p-10 shadow-lg bg-white relative transition-all">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                            <h2 class="text-xl font-montserrat font-extrabold flex items-center gap-2 text-[#0F172A]">
+                                <span class="w-2 h-6 bg-blue-600 rounded"></span> Project Details
+                            </h2>
+                            <div class="flex items-center gap-3">
+                                <button type="button" id="downloadLockedPdfBtn" class="hidden px-4 py-2 bg-slate-900 text-white text-[10px] font-bold rounded-lg uppercase tracking-widest hover:bg-slate-800 transition-all cursor-pointer shadow-md">
+                                    Download PDF
+                                </button>
+                                <div id="timerBadge" class="bg-slate-50 border border-slate-200 px-4 py-2 rounded-lg flex items-center gap-3">
+                                    <span id="timerLabel" class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Status:</span>
+                                    <span id="countdownTimer" class="font-mono text-xl text-blue-600 font-bold">WAITING...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-500 text-sm mb-6">Please define your exact project requirements below. <span class="text-blue-600 font-bold">These details will be permanently locked <span id="scopeTimerNotice">48 hours</span> after the timer starts.</span></p>
+
+                        <form id="blueprintForm" class="space-y-6 relative">
+
+                            <div id="projectTypeDisplay" class="p-5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <label class="block text-[10px] text-slate-500 uppercase tracking-widest mb-1 font-bold">Project Type</label>
+                                <div id="display-project-type" class="text-lg font-montserrat font-extrabold text-blue-600 uppercase tracking-tighter">Syncing...</div>
+                            </div>
+
+                            <div class="p-6 bg-blue-50 border border-blue-200 rounded-xl space-y-4 mb-6">
+                                <h3 class="text-blue-700 font-bold uppercase tracking-widest text-xs border-b border-blue-200 pb-2 mb-4">Step 1: Your Details</h3>
+                                <p class="text-[10px] text-blue-800 mb-2 font-semibold">Just to verify we are talking to the right person.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" id="v_client_name" aria-label="Your Name" required placeholder="Your Full Name *" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] outline-none">
+                                    <input type="email" id="v_client_email" aria-label="Your Email" readonly class="w-full bg-slate-100 border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-500 outline-none cursor-not-allowed">
+                                </div>
+                                <input type="tel" id="v_client_phone" aria-label="Contact Number" required placeholder="Phone / WhatsApp Number *" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] outline-none">
+                                <textarea id="v_client_address" aria-label="Your Address" required rows="2" placeholder="Your City & Country / Business Address *" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] outline-none resize-none"></textarea>
+                                
+                                <input type="hidden" id="v_client_ip">
+                            </div>
+
+                            <div id="compScopeSection" class="space-y-6 hidden transition-all duration-500">
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Tool Customization</h3>
+                                    <textarea id="q_comp_mods" aria-label="Component Modifications" rows="5" required placeholder="Tell us exactly what changes or additions you need in this tool..." class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="webScopeSection" class="space-y-6 hidden transition-all duration-500">
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Step 2: Project Goals</h3>
+                                    <input type="text" id="q_web_goal" aria-label="Business Objective" required placeholder="What is the main goal? (e.g. Get more leads, sell products)" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    <input type="text" id="q_web_audience" aria-label="Target Audience" required placeholder="Who will use this website?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    
+                                    <div class="p-4 bg-white border border-slate-200 rounded-lg">
+                                        <label for="q_web_pages" class="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Estimated Size</label>
+                                        <input type="number" id="q_web_pages" placeholder="How many pages roughly? (e.g. 5, 10, 20)" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Step 3: Tech Requirements</h3>
+                                    <input type="text" id="q_web_refs" aria-label="Reference Links" placeholder="Any reference websites we should look at?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <select id="q_web_theme" aria-label="Design Language" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                            <option value="" disabled selected>Preferred Design Style</option>
+                                            <option value="minimal">Minimal / Clean</option>
+                                            <option value="corporate">Professional / Corporate</option>
+                                            <option value="creative">Creative / Fun</option>
+                                            <option value="dark">Dark Mode Theme</option>
+                                        </select>
+                                        <select id="q_web_hosting" aria-label="Infrastructure Readiness" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                            <option value="" disabled selected>Do you have a Domain & Hosting?</option>
+                                            <option value="have_both">Yes, I have them ready</option>
+                                            <option value="need_both">No, Auzent needs to set this up</option>
+                                        </select>
+                                    </div>
+                                    <textarea id="q_web_features" aria-label="Features Checklist" rows="3" required placeholder="What features do you need? (e.g., Contact Form, Payments, User Login)" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none resize-none"></textarea>
+                                    <textarea id="q_web_journey" aria-label="User Journey" rows="2" required placeholder="How should a user navigate through the site?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="appScopeSection" class="space-y-6 hidden transition-all duration-500 mt-8">
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Step 1: App Strategy</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <input type="text" id="q_app_name" aria-label="App Name" placeholder="What is the name of your app?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                        <select id="q_app_platform" aria-label="Target Platform" required class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                            <option value="" disabled selected>Choose Platform</option>
+                                            <option value="android">Native Android (Kotlin)</option>
+                                            <option value="cross-platform">Cross-Platform Development</option>
+                                        </select>
+                                    </div>
+                                    <div class="p-4 bg-white border border-slate-200 rounded-lg">
+                                        <label for="q_app_screens" class="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Estimated Size</label>
+                                        <input type="number" id="q_app_screens" placeholder="Roughly how many screens/pages? (e.g. 5, 10)" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    </div>
+                                    <input type="text" id="q_app_audience" aria-label="Target Audience" required placeholder="Who will use this app?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    <input type="text" id="q_app_purpose" aria-label="Core Value" placeholder="What is the main purpose of the app?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    <input type="text" id="q_app_refs" aria-label="Competitor Apps" placeholder="Any competitor apps we should look at?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                </div>
+
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Step 2: App Features</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <select id="q_app_auth" aria-label="Auth Method" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                            <option value="" disabled selected>How will users log in?</option>
+                                            <option value="otp">Phone Number OTP</option>
+                                            <option value="google">Google Login</option>
+                                            <option value="email">Standard Email & Password</option>
+                                        </select>
+                                        <select id="q_app_admin" aria-label="Admin Dashboard" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                            <option value="" disabled selected>Do you need an Admin Dashboard?</option>
+                                            <option value="yes">Yes, build an admin dashboard</option>
+                                            <option value="no">No, I don't need one</option>
+                                        </select>
+                                    </div>
+                                    <textarea id="q_app_features" aria-label="Core Features" rows="3" placeholder="List all features needed (e.g., Push Notifications, Maps, User Profiles)" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none resize-none"></textarea>
+                                    <input type="text" id="q_app_hardware" aria-label="Hardware Access" placeholder="Does the app need Camera, GPS, or Bluetooth?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                    <input type="text" id="q_app_monetization" aria-label="Monetization Strategy" placeholder="Will the app take payments or have subscriptions?" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none">
+                                </div>
+                            </div>
+
+                            <div id="sharedScopeSection" class="space-y-6 hidden transition-all duration-500 mt-8">
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                                    <h3 class="text-blue-600 font-bold uppercase tracking-widest text-xs border-b border-slate-200 pb-2 mb-4">Step 4: Design & Features</h3>
+                                    
+                                    <select id="q_ui_design" aria-label="UI/UX Source" required class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                        <option value="" disabled selected>Who will provide the design?</option>
+                                        <option value="client_provides">I have the design ready (Figma/XD)</option>
+                                        <option value="dev_creates">Auzent will create the design</option>
+                                    </select>
+
+                                    <textarea id="q_api_reqs" aria-label="API Requirements" rows="2" placeholder="Any 3rd-party services to integrate? (e.g., Salesforce, Google Maps)" class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none resize-none"></textarea>
+
+                                    <select id="q_content_status" aria-label="Content Status" required class="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 outline-none cursor-pointer">
+                                        <option value="" disabled selected>Are your texts and images ready?</option>
+                                        <option value="ready">Yes, I will provide all content</option>
+                                        <option value="not_ready">No, I am still working on them</option>
+                                        <option value="dev_fill">Use dummy text for now</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-white border border-slate-200 border-l-4 border-l-blue-600 rounded-xl space-y-4 shadow-sm">
+                                <h3 id="toolboxHeader" class="text-[#0F172A] font-bold uppercase tracking-widest text-xs border-b border-slate-100 pb-2 mb-4">Step 5: File Upload & Agreement</h3>
+                                <p id="standardAssetList" class="text-xs text-slate-500 leading-relaxed mb-4">
+                                    If you have any logos, brand colors, or files, you can upload them below:<br><br>
+                                    <span class="text-slate-700 font-semibold">• High-Quality Logo</span><br>
+                                    <span class="text-slate-700 font-semibold">• Brand Guidelines</span>
+                                </p>
+                                <p id="componentAssetList" class="text-xs text-slate-500 leading-relaxed mb-4 hidden">
+                                    Please upload any files related to this tool modification.
+                                </p>
+                                
+                                <div id="assetVaultContainer" class="hidden mt-4 p-4 border border-emerald-200 bg-emerald-50 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                    <div>
+                                        <h4 class="text-emerald-700 font-bold text-sm uppercase tracking-widest">Secure File Upload Ready</h4>
+                                        <p class="text-xs text-emerald-600 mt-1">Upload your files directly to this secure folder.</p>
+                                    </div>
+                                    <a id="assetDriveLink" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-2 bg-emerald-600 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-emerald-700 transition-all shadow-sm whitespace-nowrap">
+                                        Open Upload Folder
+                                    </a>
+                                </div>
+
+                                <div class="pt-4 border-t border-slate-100 space-y-3">
+                                    <label class="flex items-start gap-3 text-sm text-slate-600 cursor-pointer">
+                                        <input type="checkbox" id="q_agreeTerms" aria-label="Confirm details and agree to terms" required class="w-5 h-5 mt-0.5 accent-blue-600 cursor-pointer">
+                                        <span>I confirm the above details are correct. I agree to <a href="terms.html" target="_blank" class="text-blue-600 font-semibold underline cursor-pointer relative z-30">The Auzent Terms of Service</a> and understand that this covers <b>Software Development</b> only.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="button" id="saveScopeBtn" class="w-full px-6 py-4 bg-slate-100 border border-slate-300 text-slate-700 font-bold rounded-xl text-sm hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors uppercase tracking-widest mt-6 cursor-pointer">
+                                Save Draft
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="glass-card p-6 md:p-8 border-t-4 border-t-emerald-500 shadow-lg bg-white relative">
+                        <h2 class="text-xl font-montserrat font-extrabold mb-6 flex items-center gap-2 text-[#0F172A]">Project Payments</h2>
+
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-6">
+                            <p class="text-slate-500 text-[10px] uppercase tracking-widest mb-1 font-bold">Total Project Cost</p>
+                            <p id="totalPrice" class="text-3xl font-mono text-emerald-600 font-bold tracking-tighter">₹--</p>
+                        </div>
+
+                        <div class="space-y-4 w-full">
+                            <div class="flex justify-between text-[10px] text-blue-600 underline cursor-pointer uppercase tracking-widest font-bold mb-1">
+                                <span id="clickPay30" class="hover:text-blue-800 transition">Phase 1: 30%</span>
+                                <span id="clickPay60" class="hover:text-blue-800 transition">Phase 2: 60%</span>
+                                <span id="clickPay100" class="hover:text-blue-800 transition">Phase 3: 100%</span>
+                            </div>
+
+                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden border border-slate-300 relative">
+                                <div id="paymentProgressBar" class="h-full bg-emerald-500 w-0 transition-all duration-1000"></div>
+                                <div class="absolute top-0 left-[30%] w-px h-full bg-white"></div>
+                                <div class="absolute top-0 left-[60%] w-px h-full bg-white"></div>
+                            </div>
+                            <p id="paymentStatusText" class="text-xs text-blue-600 font-mono font-bold tracking-wide text-right">0% Paid</p>
+                            <p id="nextUnlockText" class="text-xs text-right mt-2 text-slate-600"></p>
+
+                            <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                <p class="text-[10px] text-blue-800 leading-relaxed font-semibold">
+                                    <strong class="text-blue-900">NOTE:</strong> After making a payment, it may take 1-4 hours to reflect on this dashboard.
+                                </p>
+                            </div>
+
+                            <div id="paymentInputArea" class="mt-6 pt-6 border-t border-slate-200">
+                                <label for="customPayAmount" class="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Amount to Pay (₹)</label>
+                                <input type="number" id="customPayAmount" placeholder="e.g. 50000" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-[#0F172A] focus:outline-none focus:border-emerald-500 font-mono text-lg font-bold mb-4 shadow-sm">
+                                
+                                <label for="paymentSenderName" class="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Your Bank Account Name</label>
+                                <input type="text" id="paymentSenderName" placeholder="e.g. Acme Corp" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-[#0F172A] focus:outline-none focus:border-emerald-500 text-sm mb-4">
+                                
+                                <button id="generateUPIBtn" class="w-full bg-emerald-50 border border-emerald-300 text-emerald-700 font-bold py-3.5 rounded-xl hover:bg-emerald-600 hover:text-white transition-all shadow-sm uppercase tracking-widest text-xs cursor-pointer">
+                                    Generate Payment QR Code
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="paymentArea" class="mt-6 hidden flex flex-col items-center bg-white p-6 rounded-xl border border-slate-200 shadow-inner">
+                            <p class="text-xs text-slate-600 mb-3 font-semibold text-center">Scan to pay <span id="dynamicAmount" class="text-[#0F172A] font-bold font-mono text-lg block text-center mt-1"></span></p>
+                            <div id="qrCodePlaceholder" class="w-40 h-40 bg-white border border-slate-200 rounded-xl flex items-center justify-center p-3 mb-4 shadow-sm">
+                                <img id="qrImage" src="" alt="Secure QR Code" class="hidden w-full h-full">
+                            </div>
+                            <a id="upiDeepLink" href="#" class="text-[10px] text-blue-600 font-bold underline uppercase tracking-widest mb-4 hover:text-blue-800">Pay Using UPI App</a>
+                            <a id="whatsappProofBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 text-white rounded-xl py-3 text-xs font-bold flex items-center justify-center gap-2 uppercase tracking-widest hover:bg-emerald-700 shadow-md transition-all cursor-pointer">
+                                Confirm Payment on WhatsApp ➔
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="formPreviewModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 transition-all">
+        <div class="glass-card w-full max-w-2xl flex flex-col max-h-[90vh] border-t-4 border-t-blue-600 bg-white shadow-2xl rounded-3xl">
+            <div class="p-6 md:p-8 pb-4 relative">
+                <button onclick="document.getElementById('formPreviewModal').classList.add('hidden')" aria-label="Close Preview" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 text-3xl font-bold cursor-pointer">&times;</button>
+                <div class="text-center">
+                    <h2 class="text-2xl font-montserrat font-extrabold text-[#0F172A] uppercase tracking-widest">Review Project Details</h2>
+                    <p class="text-xs text-slate-500 mt-1">Please review everything carefully before we lock the details.</p>
+                </div>
+            </div>
+
+            <div id="previewContentArea" class="flex-1 overflow-y-auto px-6 md:px-8 py-4 space-y-4 text-sm text-[#475569] font-mono border-t border-b border-slate-100 bg-slate-50">
+            </div>
+
+            <div class="p-6 md:p-8 pt-6 bg-white rounded-b-3xl">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button id="printPreviewBtn" type="button" class="flex-1 px-4 py-3.5 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-all font-bold uppercase tracking-widest border border-slate-300 text-xs cursor-pointer shadow-sm">
+                        🖨️ Download as PDF
+                    </button>
+                    <button id="confirmSaveBtn" type="button" class="flex-1 px-4 py-3.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-bold uppercase tracking-widest shadow-md text-xs cursor-pointer">
+                        🔒 Lock Details & Start Project
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script defer src="js/firebase-config.js"></script>
+    <script defer src="js/gateway.js"></script>
+</body>
+</html>

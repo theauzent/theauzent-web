@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /gateway.html
+Disallow: /preview.html
+
+Sitemap: https://theauzent.netlify.app/sitemap.xml
